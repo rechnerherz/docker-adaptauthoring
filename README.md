@@ -16,7 +16,7 @@ docker exec -it adapt-authoring node install --dbHost adapt-db
 docker restart adapt-authoring
 ```
 
-The Adapt Authoring tool should now be available at [localhost:5000][http://localhost:5000/].
+The Adapt Authoring tool should now be available at [localhost:5000](http://localhost:5000/).
 
 ### Run
 
