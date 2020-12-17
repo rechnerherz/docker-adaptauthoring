@@ -1,4 +1,5 @@
-FROM keymetrics/pm2:8-stretch
+# https://hub.docker.com/r/keymetrics/pm2
+FROM keymetrics/pm2:14-stretch
 
 LABEL maintainer="dario@rechnerherz.at"
 
