@@ -13,6 +13,13 @@ apt-get update
 apt-get install docker-ce
 ```
 
+# docker-compose
+
+```
+curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+```
+
 # adapt
 
 ```
@@ -62,6 +69,12 @@ docker restart adapt-authoring2
 
 echo "/var/lib/docker/volumes/adapt-data/_data/ /var/lib/docker/volumes/vsftpd-data/_data/aatftp/adapt-data none bind 0 0" >> /etc/fstab
 mount -a
+```
+
+# ssl
+
+```
+docker run --rm -itd -v "$(pwd)/out":/acme.sh --net=host --name=acme.sh neilpang/acme.sh daemon
 ```
 
 # utils
