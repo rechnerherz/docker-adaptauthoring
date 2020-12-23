@@ -17,7 +17,7 @@ gzip_min_length 1000;
 # HTTP server
 server {
 
-    listen 8080;
+    listen 80;
 
     # Server name substituted with envsubst
     server_name $NGINX_SERVER_NAME;
@@ -29,19 +29,19 @@ server {
 # HTTPS server
 server {
 
-    listen 8443 ssl default_server;
+    listen 443 ssl default_server;
 
     # Server name substituted with envsubst
     server_name $NGINX_SERVER_NAME;
 
     # SSL certificate
-    ssl_certificate /etc/letsencrypt/live/adapt/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/adapt/privkey.pem;
+    ssl_certificate /etc/ssl/adapt/fullchain.pem;
+    ssl_certificate_key /etc/ssl/adapt/privkey.pem;
 
     # Enable OCSP stapling
     ssl_stapling on;
     ssl_stapling_verify on;
-    ssl_trusted_certificate /etc/letsencrypt/live/adapt/fullchain.pem;
+    ssl_trusted_certificate /etc/ssl/adapt/fullchain.pem;
 
     # Use recommended letsencrypt SSL options
     include /etc/nginx/conf.d/ssl-options;

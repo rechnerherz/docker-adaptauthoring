@@ -60,6 +60,8 @@ services:
     volumes:
       - ./etc/nginx/templates:/etc/nginx/templates
       - ./etc/nginx/conf.d:/etc/nginx/conf.d
+      - ./out/fullchain.cer:/etc/ssl/adapt/fullchain.pem
+      - ./out/learn.macschneider.at.key:/etc/ssl/adapt/privkey.pem
     environment:
       NGINX_SERVER_NAME: "$ADAPT_NGINX_SERVER_NAME"
     depends_on:
