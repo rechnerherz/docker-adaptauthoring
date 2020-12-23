@@ -32,8 +32,6 @@ export ADAPT_FTP_PASSWORD="REPLACE_ME"
 export ADAPT_ADMINMONGO_PASSWORD="REPLACE_ME"
 export ADAPT_NGINX_SERVER_NAME="learn.macschneider.at"
 
-mkdir /var/www
-
 docker-compose --project-name=adapt up -d
 
 docker cp install-without-github-api.js adapt-authoring2:/adapt_authoring/install-without-github-api.js
@@ -75,6 +73,13 @@ mount -a
 
 ```
 docker run --rm -itd -v "$(pwd)/out":/acme.sh --net=host --name=acme.sh neilpang/acme.sh daemon
+
+docker exec acme.sh --issue -d example.com --standalone
+
+docker exec acme.sh --install-cert -d example.com\
+ --key-file ./etc/ssl/adapt/privkey.pem\
+ --fullchain-file ./etc/ssl/adapt/fullchain.pem\
+ --reloadcmd "docker exec -it adapt-nginx nginx -s reload"
 ```
 
 # utils
