@@ -1,0 +1,112 @@
+
+# This template is processed by the nginx image with envsubst
+# from /etc/nginx/templates to /etc/nginx/conf.d.
+# The processed template is then included by the main /etc/nginx/nginx.conf.
+
+# Disable emitting nginx version
+# http://nginx.org/en/docs/http/ngx_http_core_module.html#server_tokens
+server_tokens off;
+
+# Enable gzip compression
+# https://docs.nginx.com/nginx/admin-guide/web-server/compression/
+# http://nginx.org/en/docs/http/ngx_http_gzip_module.html
+gzip on;
+gzip_types *;
+gzip_min_length 1000;
+
+# HTTP server
+server {
+
+    listen 8080;
+
+    # Server name substituted with envsubst
+    server_name $NGINX_SERVER_NAME;
+
+    # Redirect to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+# HTTPS server
+server {
+
+    listen 8443 ssl default_server;
+
+    # Server name substituted with envsubst
+    server_name $NGINX_SERVER_NAME;
+
+    # SSL certificate
+    ssl_certificate /etc/letsencrypt/live/adapt/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/adapt/privkey.pem;
+
+    # Enable OCSP stapling
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    ssl_trusted_certificate /etc/letsencrypt/live/adapt/fullchain.pem;
+
+    # Use recommended letsencrypt SSL options
+    include /etc/nginx/conf.d/ssl-options;
+
+    # Set DH parameters
+    ssl_dhparam /etc/nginx/ssl-dhparams.pem;
+
+    # Add security headers
+    include /etc/nginx/conf.d/security-headers;
+
+    # Root directory
+    # http://nginx.org/en/docs/http/ngx_http_core_module.html#root
+    root /var/www/;
+
+    # Root location redircet
+    location = / {
+        return 301 /adapt/;
+    }
+
+    # Adapt reverse proxy
+    location /adapt/ {
+
+        # Set X-Forwarded-* header for the requests passed to Tomcat
+        # http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Prefix /adapt;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+
+        # http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass
+        # https://docs.docker.com/compose/networking/
+        proxy_pass http://adapt-authoring2:80/;
+    }
+
+    # Portainer reverse proxy
+    location /portainer/ {
+
+        # Set X-Forwarded-* header for the requests passed to Tomcat
+        # http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Prefix /portainer;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+
+        # http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass
+        # https://docs.docker.com/compose/networking/
+        proxy_pass http://portainer:9000/;
+    }
+
+    # Adminmongo reverse proxy
+    location /adminmongo/ {
+
+        # Set X-Forwarded-* header for the requests passed to Tomcat
+        # http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Prefix /adminmongo;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+
+        # http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass
+        # https://docs.docker.com/compose/networking/
+        proxy_pass http://adminmongo:1234/;
+    }
+
+}

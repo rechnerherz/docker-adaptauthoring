@@ -1,0 +1,20 @@
+
+# This template is processed by the nginx image with envsubst
+# from /etc/nginx/templates to /etc/nginx/conf.d.
+# The processed template is then included by the /etc/nginx/conf.d/default.conf.
+
+# Add HSTS header
+# https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/
+add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+# Add Referrer-Policy header to omit sending referrer information
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
+add_header Referrer-Policy no-referrer always;
+
+# Add X-Content-Type-Options header to disable MIME type sniffing
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
+add_header X-Content-Type-Options nosniff always;
+
+# Add X-XSS-Protection header to enable XSS filtering
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection
+add_header X-XSS-Protection "1; mode=block" always;
