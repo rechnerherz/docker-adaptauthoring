@@ -18,6 +18,8 @@ docker restart adapt-authoring
 
 The Adapt Authoring tool should now be available at [localhost:5000](http://localhost:5000/).
 
+For a full stack, see the `docker-compose.yml`.
+
 ### Run
 
 After the setup, run it with:
