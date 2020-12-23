@@ -72,14 +72,20 @@ mount -a
 # ssl
 
 ```
-docker run --rm -itd -v "$(pwd)/out":/acme.sh --net=host --name=acme.sh neilpang/acme.sh daemon
+docker run --rm -itd\
+ -v "$(pwd)/out":/acme.sh\
+ --net=host\
+ --name=acme.sh\
+ neilpang/acme.sh daemon
 
-docker exec acme.sh --issue -d example.com --standalone
+docker exec acme.sh --issue -d learn.macschneider.at --standalone
 
-docker exec acme.sh --install-cert -d example.com\
- --key-file ./etc/ssl/adapt/privkey.pem\
- --fullchain-file ./etc/ssl/adapt/fullchain.pem\
- --reloadcmd "docker exec -it adapt-nginx nginx -s reload"
+docker exec acme.sh mkdir -p out/ssl/adapt
+docker exec acme.sh --install-cert -d learn.macschneider.at\
+ --key-file ./out/ssl/adapt/privkey.pem\
+ --fullchain-file ./out/ssl/adapt/fullchain.pem\
+
+docker exec -it adapt-nginx nginx -s reload
 ```
 
 # utils
