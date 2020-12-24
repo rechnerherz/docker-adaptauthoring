@@ -30,21 +30,22 @@ services:
       - vsftpd-data:/home/vsftpd
       - vsftpd-logs:/var/log/vsftpd
     ports:
-      - 20:20
-      - 21:21
-      - 21100-21109:21100-21109
+      - "20:20"
+      - "21:21"
+      - "21100-21109:21100-21109"
     environment:
       FTP_USER: aatftp
       FTP_PASS: "$ADAPT_FTP_PASSWORD"
       PASV_ADDRESS: 127.0.0.1
-      PASV_MIN_PORT: 21100
-      PASV_MAX_PORT: 21109
+      PASV_MIN_PORT: "21100"
+      PASV_MAX_PORT: "21109"
   adminmongo:
     container_name: adminmongo
     image: mrvautin/adminmongo
     restart: always
     environment:
       PASSWORD: "$ADAPT_ADMINMONGO_PASSWORD"
+      CONTEXT: "adminmongo"
     command: /bin/sh -c "rm config/app.json; node app.js"
   portainer:
     container_name: portainer
@@ -67,3 +68,6 @@ services:
       - adapt-authoring
       - adminmongo
       - portainer
+    ports:
+      - "80:80"
+      - "443:443"
