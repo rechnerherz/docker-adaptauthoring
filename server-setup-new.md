@@ -20,6 +20,24 @@ curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compo
 chmod +x /usr/local/bin/docker-compose
 ```
 
+# ssl
+
+```
+docker run --rm -itd\
+ -v "$(pwd)/out":/acme.sh\
+ --net=host\
+ --name=acme.sh\
+ neilpang/acme.sh daemon
+
+docker exec acme.sh --issue -d learn.macschneider.at --standalone
+
+docker exec acme.sh --install-cert -d learn.macschneider.at\
+ --key-file /acme.sh/ssl/adapt/privkey.pem\
+ --fullchain-file /acme.sh/ssl/adapt/fullchain.pem
+
+docker exec -it adapt-nginx nginx -s reload
+```
+
 # adapt
 
 ```
@@ -67,24 +85,6 @@ docker restart adapt-authoring2
 
 echo "/var/lib/docker/volumes/adapt-data/_data/ /var/lib/docker/volumes/vsftpd-data/_data/aatftp/adapt-data none bind 0 0" >> /etc/fstab
 mount -a
-```
-
-# ssl
-
-```
-docker run --rm -itd\
- -v "$(pwd)/out":/acme.sh\
- --net=host\
- --name=acme.sh\
- neilpang/acme.sh daemon
-
-docker exec acme.sh --issue -d learn.macschneider.at --standalone
-
-docker exec acme.sh --install-cert -d learn.macschneider.at\
- --key-file /acme.sh/ssl/adapt/privkey.pem\
- --fullchain-file /acme.sh/ssl/adapt/fullchain.pem
-
-docker exec -it adapt-nginx nginx -s reload
 ```
 
 # utils

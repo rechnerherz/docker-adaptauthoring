@@ -47,7 +47,7 @@ server {
     include /etc/nginx/conf.d/ssl-options;
 
     # Set DH parameters
-    ssl_dhparam /etc/nginx/ssl-dhparams.pem;
+    ssl_dhparam /etc/nginx/conf.d/ssl-dhparams.pem;
 
     # Add security headers
     include /etc/nginx/conf.d/security-headers;
