@@ -80,10 +80,9 @@ docker run --rm -itd\
 
 docker exec acme.sh --issue -d learn.macschneider.at --standalone
 
-docker exec acme.sh mkdir -p out/ssl/adapt
 docker exec acme.sh --install-cert -d learn.macschneider.at\
- --key-file ./out/ssl/adapt/privkey.pem\
- --fullchain-file ./out/ssl/adapt/fullchain.pem\
+ --key-file /acme.sh/ssl/adapt/privkey.pem\
+ --fullchain-file /acme.sh/ssl/adapt/fullchain.pem
 
 docker exec -it adapt-nginx nginx -s reload
 ```

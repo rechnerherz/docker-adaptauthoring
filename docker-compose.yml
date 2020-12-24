@@ -60,8 +60,7 @@ services:
     volumes:
       - ./etc/nginx/templates:/etc/nginx/templates
       - ./etc/nginx/conf.d:/etc/nginx/conf.d
-      - ./out/ssl/adapt/fullchain.pem:/etc/ssl/adapt/fullchain.pem
-      - ./out/ssl/adapt/privkey.pem:/etc/ssl/adapt/privkey.pem
+      - ./out/ssl/adapt:/etc/ssl/adapt
     environment:
       NGINX_SERVER_NAME: "$ADAPT_NGINX_SERVER_NAME"
     depends_on:
