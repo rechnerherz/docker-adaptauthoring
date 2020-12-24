@@ -115,7 +115,7 @@ server {
 
         # http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass
         # https://docs.docker.com/compose/networking/
-        proxy_pass http://adminmongo:1234/adminmongo;
+        proxy_pass http://adminmongo:1234/adminmongo/;
     }
 
 }
