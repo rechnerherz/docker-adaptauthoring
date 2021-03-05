@@ -86,7 +86,9 @@ docker run -d -v vsftpd-data:/home/vsftpd -v vsftpd-logs:/var/log/vsftpd \
 -e PASV_ADDRESS=127.0.0.1 -e PASV_MIN_PORT=21100 -e PASV_MAX_PORT=21110 \
 --name vsftpd --restart=always fauria/vsftpd
 
-echo "/var/lib/docker/volumes/adapt-data/_data/ /var/lib/docker/volumes/vsftpd-data/_data/aatftp/adapt-data none bind 0 0" >> /etc/fstab
+echo "/var/lib/docker/volumes/adapt-data/_data/ /var/lib/docker/volumes/adapt_vsftpd-data/_data/aatftp/adapt-data none bind 0 0" >> /etc/fstab
+echo "/var/lib/docker/volumes/adapt-data2/_data/ /var/lib/docker/volumes/adapt_vsftpd-data/_data/aatftp/adapt-data2 none bind 0 0" >> /etc/fstab
+
 mount -a
 ```
 
@@ -97,6 +99,8 @@ Replace `PASSWORD`.
 ```
 docker run -d -p 1234:1234 -e PASSWORD=PASSWORD --name adminmongo --restart=always --link adapt-db mrvautin/adminmongo /bin/sh -c "rm config/app.json; node app.js"
 ```
+
+Connection string: `mongodb://adapt-db2:27017/adapt-tenant-master`
 
 # utils
 
