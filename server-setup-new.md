@@ -92,3 +92,10 @@ mount -a
 ```
 aptitude install htop molly-guard rsync
 ```
+
+
+# recreate nginx after config change
+
+```
+docker-compose --project-name=adapt up --build --force-recreate --no-deps -d nginx
+```
