@@ -20,7 +20,9 @@ services:
     volumes:
       - adapt-data:/adapt_authoring
     environment:
-      VIRTUAL_HOST: adapt.rechnerherz.at
-      LETSENCRYPT_HOST: adapt.rechnerherz.at
-      LETSENCRYPT_EMAIL: tech@rechnerherz.at
-
+      - VIRTUAL_HOST=adapt.rechnerherz.at
+      - VIRTUAL_PORT=5000
+      - LETSENCRYPT_HOST=adapt.rechnerherz.at
+      - LETSENCRYPT_EMAIL=tech@rechnerherz.at
+    expose:
+      - "5000"
