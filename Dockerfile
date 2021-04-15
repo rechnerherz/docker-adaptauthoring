@@ -21,4 +21,4 @@ EXPOSE 5000
 
 WORKDIR /adapt_authoring
 
-CMD pm2 start --no-daemon server.js
+CMD [ "pm2-runtime", "start", "server.js" ]

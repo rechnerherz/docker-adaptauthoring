@@ -21,7 +21,7 @@ docker exec -it adapt-authoring node install-without-github-api \
 --dbName adapt-tenant-master \
 --useConnectionUri n \
 --dbConnectionUri n \
---dbHost adapt-db2 \
+--dbHost adapt-db \
 --dbPort 27017 \
 --dbUser n \
 --dbPass n \
@@ -38,4 +38,10 @@ docker exec -it adapt-authoring node install-without-github-api \
 --masterTenantDisplayName Master \
 --suEmail admin
 docker restart adapt-authoring
+```
+
+# recreate after config change
+
+```
+docker-compose --project-name=adapt --file docker-compose-rh.yml up --build --force-recreate --no-deps -d adapt-authoring
 ```
