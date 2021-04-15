@@ -12,7 +12,7 @@ docker cp install-without-github-api.js adapt-authoring:/adapt_authoring/install
 docker exec -it adapt-authoring node install-without-github-api \
 --useJSON n \
 --install y \
---serverPort 5000 \
+--serverPort 80 \
 --serverName localhost \
 --dataRoot data \
 --authoringToolRepository "https://github.com/adaptlearning/adapt_authoring.git" \
