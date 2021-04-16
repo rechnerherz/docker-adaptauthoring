@@ -16,6 +16,7 @@ services:
   adapt-authoring:
     container_name: adapt-authoring
     image: darioseidl/adapt-authoring:0.10.5
+    build: .
     restart: always
     volumes:
       - adapt-data:/adapt_authoring
@@ -28,3 +29,7 @@ services:
 #      - "5000"
 #    ports:
 #      - "5000:5000"
+networks:
+  default:
+    external:
+      name: webproxy
