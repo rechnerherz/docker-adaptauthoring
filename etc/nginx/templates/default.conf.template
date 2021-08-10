@@ -14,6 +14,12 @@ gzip on;
 gzip_types *;
 gzip_min_length 1000;
 
+# Increase timeouts
+proxy_connect_timeout 60s;
+proxy_send_timeout 600s;
+proxy_read_timeout 600s;
+send_timeout 600s;
+
 # HTTP server
 server {
 
@@ -60,6 +66,10 @@ server {
     location = / {
         return 301 /adapt/;
     }
+
+    # Don't limit the client request body size
+    # https://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size
+    client_max_body_size 0;
 
     # Adapt reverse proxy
     location /adapt/ {

@@ -22,21 +22,7 @@ chmod +x /usr/local/bin/docker-compose
 
 # ssl
 
-```
-docker run --rm -itd\
- -v "$(pwd)/out":/acme.sh\
- --net=host\
- --name=acme.sh\
- neilpang/acme.sh daemon
-
-docker exec acme.sh --issue -d learn.macschneider.at --standalone
-
-docker exec acme.sh --install-cert -d learn.macschneider.at\
- --key-file /acme.sh/ssl/adapt/privkey.pem\
- --fullchain-file /acme.sh/ssl/adapt/fullchain.pem
-
-docker exec -it adapt-nginx nginx -s reload
-```
+https://github.com/wmnnd/nginx-certbot
 
 # adapt
 
