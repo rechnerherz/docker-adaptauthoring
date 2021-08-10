@@ -13,12 +13,12 @@ RUN set -x\
  && git clone https://github.com/adaptlearning/adapt_authoring.git\
  && cd /adapt_authoring\
  && git fetch --all --tags\
- && git checkout tags/v0.10.5 --branch release-0.10.5\
+ && git checkout tags/v0.10.5 -b release-0.10.5\
  && npm install --production\
  && mkdir conf
 
-EXPOSE 5000
+#EXPOSE 5000
 
 WORKDIR /adapt_authoring
 
-CMD pm2 start --no-daemon server.js
+CMD [ "pm2-runtime", "start", "server.js" ]

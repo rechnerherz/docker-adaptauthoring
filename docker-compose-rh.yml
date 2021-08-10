@@ -1,0 +1,35 @@
+version: '3'
+
+volumes:
+  adapt-db:
+  adapt-configdb:
+  adapt-data:
+
+services:
+  mongo:
+    container_name: adapt-db
+    image: mongo
+    restart: always
+    volumes:
+      - adapt-db:/data/db
+      - adapt-configdb:/data/configdb
+  adapt-authoring:
+    container_name: adapt-authoring
+    image: darioseidl/adapt-authoring:0.10.5
+    build: .
+    restart: always
+    volumes:
+      - adapt-data:/adapt_authoring
+    environment:
+      - VIRTUAL_HOST=adapt.rechnerherz.at
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=adapt.rechnerherz.at
+      - LETSENCRYPT_EMAIL=tech@rechnerherz.at
+#    expose:
+#      - "5000"
+#    ports:
+#      - "5000:5000"
+networks:
+  default:
+    external:
+      name: webproxy
