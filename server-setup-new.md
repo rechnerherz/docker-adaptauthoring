@@ -83,5 +83,6 @@ aptitude install htop molly-guard rsync
 # recreate nginx after config change
 
 ```
+export ADAPT_NGINX_SERVER_NAME="learn.macschneider.at"
 docker-compose --project-name=adapt up --build --force-recreate --no-deps -d nginx
 ```
