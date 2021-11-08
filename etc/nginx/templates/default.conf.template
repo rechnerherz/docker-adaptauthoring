@@ -28,6 +28,10 @@ server {
     # Server name substituted with envsubst
     server_name $NGINX_SERVER_NAME;
 
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
     # Redirect to HTTPS
     return 301 https://$host$request_uri;
 }

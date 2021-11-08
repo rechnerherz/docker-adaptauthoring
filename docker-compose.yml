@@ -63,6 +63,7 @@ services:
       - ./etc/nginx/conf.d:/etc/nginx/conf.d
 #      - ./out/ssl/adapt:/etc/ssl/adapt
       - ../nginx-certbot/data/certbot/conf:/etc/letsencrypt
+      - ../nginx-certbot/data/certbot/www:/var/www/certbot
     environment:
       NGINX_SERVER_NAME: "$ADAPT_NGINX_SERVER_NAME"
     depends_on:
