@@ -60,9 +60,7 @@ services:
     restart: always
     volumes:
       - ./etc/nginx/templates:/etc/nginx/templates
-      - ./etc/nginx/conf.d/security-headers:/etc/nginx/conf.d/security-headers
-      - ./etc/nginx/conf.d/ssl-dhparams.pem:/etc/nginx/conf.d/ssl-dhparams.pem
-      - ./etc/nginx/conf.d/ssl-options:/etc/nginx/conf.d/ssl-options
+      - ./etc/nginx/conf.d:/etc/nginx/conf.d
 #      - ./out/ssl/adapt:/etc/ssl/adapt
       - ../nginx-certbot/data/certbot/conf:/etc/letsencrypt
       - ../nginx-certbot/data/certbot/www:/var/www/certbot
@@ -75,7 +73,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+#    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
   certbot:
     image: certbot/certbot
     restart: unless-stopped
