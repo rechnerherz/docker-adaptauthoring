@@ -13,29 +13,31 @@ apt-get update
 apt-get install docker-ce
 ```
 
-# mongo and adapt-authoring
+# docker-compose
 
-Use defaults during `node install`, set email and password.
+```
+curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+```
+
+# ssl
+
+https://github.com/wmnnd/nginx-certbot
+
+# adapt
 
 ```
 aptitude install git
 git clone https://github.com/rechnerherz/docker-adaptauthoring.git
+git clone https://github.com/wmnnd/nginx-certbot.git
+
 cd docker-adaptauthoring/
-docker run -d --name adapt-db -v adapt-db:/data/db -v adapt-configdb:/data/configdb mongo
-docker run -d --name adapt-authoring -p 5000:5000 --link adapt-db -v adapt-data:/adapt_authoring darioseidl/adapt-authoring:0.5.0
-docker exec -it adapt-authoring mkdir conf
-docker exec -it adapt-authoring node install --dbHost adapt-db
-docker restart adapt-authoring
-```
 
-# second instance of mongo and adapt-authoring
+export ADAPT_FTP_PASSWORD="REPLACE_ME"
+export ADAPT_ADMINMONGO_PASSWORD="REPLACE_ME"
 
-See [this issue](https://github.com/adaptlearning/adapt_authoring/issues/2407) for command line args.
+docker-compose --project-name=adapt up -d
 
-```
-cd docker-adaptauthoring/
-docker run -d --name adapt-db2 -v adapt-db2:/data/db -v adapt-configdb2:/data/configdb mongo
-docker run -d --name adapt-authoring2 -p 5001:5000 --link adapt-db2 -v adapt-data2:/adapt_authoring darioseidl/adapt-authoring:0.10.5
 docker cp install-without-github-api.js adapt-authoring2:/adapt_authoring/install-without-github-api.js
 docker exec -it adapt-authoring2 node install-without-github-api \
 --useJSON n \
@@ -66,44 +68,20 @@ docker exec -it adapt-authoring2 node install-without-github-api \
 --masterTenantDisplayName Master \
 --suEmail admin
 docker restart adapt-authoring2
-```
 
-# portainer
-
-```
-docker volume create portainer_data
-docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
-```
-
-# ftp
-
-Replace `PASSWORD`.
-
-```
-docker run -d -v vsftpd-data:/home/vsftpd -v vsftpd-logs:/var/log/vsftpd \
--p 20:20 -p 21:21 -p 21100-21110:21100-21110 \
--e FTP_USER=aatftp -e FTP_PASS=PASSWORD \
--e PASV_ADDRESS=127.0.0.1 -e PASV_MIN_PORT=21100 -e PASV_MAX_PORT=21110 \
---name vsftpd --restart=always fauria/vsftpd
-
-echo "/var/lib/docker/volumes/adapt-data/_data/ /var/lib/docker/volumes/adapt_vsftpd-data/_data/aatftp/adapt-data none bind 0 0" >> /etc/fstab
-echo "/var/lib/docker/volumes/adapt-data2/_data/ /var/lib/docker/volumes/adapt_vsftpd-data/_data/aatftp/adapt-data2 none bind 0 0" >> /etc/fstab
-
+echo "/var/lib/docker/volumes/adapt-data/_data/ /var/lib/docker/volumes/vsftpd-data/_data/aatftp/adapt-data none bind 0 0" >> /etc/fstab
 mount -a
 ```
-
-# adminmongo
-
-Replace `PASSWORD`.
-
-```
-docker run -d -p 1234:1234 -e PASSWORD=PASSWORD --name adminmongo --restart=always --link adapt-db mrvautin/adminmongo /bin/sh -c "rm config/app.json; node app.js"
-```
-
-Connection string: `mongodb://adapt-db2:27017/adapt-tenant-master`
 
 # utils
 
 ```
 aptitude install htop molly-guard rsync
+```
+
+
+# recreate nginx after config change
+
+```
+docker-compose --project-name=adapt up --build --force-recreate --no-deps -d nginx
 ```

@@ -6,7 +6,7 @@ git clone https://github.com/rechnerherz/docker-adaptauthoring.git
 
 cd docker-adaptauthoring/
 
-docker-compose --project-name=adapt --file docker-compose-rh.yml up -d
+docker-compose --project-name=adapt --file docker-compose-simple.yml up -d
 
 docker cp install-without-github-api.js adapt-authoring:/adapt_authoring/install-without-github-api.js
 docker exec -it adapt-authoring node install-without-github-api \
@@ -43,5 +43,5 @@ docker restart adapt-authoring
 # recreate after config change
 
 ```
-docker-compose --project-name=adapt --file docker-compose-rh.yml up --build --force-recreate --no-deps -d adapt-authoring
+docker-compose --project-name=adapt --file docker-compose-simple.yml up --build --force-recreate --no-deps -d adapt-authoring
 ```
