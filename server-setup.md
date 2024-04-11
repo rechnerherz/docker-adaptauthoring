@@ -38,8 +38,8 @@ export ADAPT_ADMINMONGO_PASSWORD="REPLACE_ME"
 
 docker-compose --project-name=adapt up -d
 
-docker cp install-without-github-api.js adapt-authoring2:/adapt_authoring/install-without-github-api.js
-docker exec -it adapt-authoring2 node install-without-github-api \
+docker cp install-without-github-api.js adapt-authoring:/adapt_authoring/install-without-github-api.js
+docker exec -it adapt-authoring node install-without-github-api \
 --useJSON n \
 --install y \
 --serverPort 5000 \
@@ -51,7 +51,7 @@ docker exec -it adapt-authoring2 node install-without-github-api \
 --dbName adapt-tenant-master \
 --useConnectionUri n \
 --dbConnectionUri n \
---dbHost adapt-db2 \
+--dbHost adapt-db \
 --dbPort 27017 \
 --dbUser n \
 --dbPass n \
@@ -67,7 +67,7 @@ docker exec -it adapt-authoring2 node install-without-github-api \
 --masterTenantName master \
 --masterTenantDisplayName Master \
 --suEmail admin
-docker restart adapt-authoring2
+docker restart adapt-authoring
 
 echo "/var/lib/docker/volumes/adapt-data/_data/ /var/lib/docker/volumes/vsftpd-data/_data/aatftp/adapt-data none bind 0 0" >> /etc/fstab
 mount -a

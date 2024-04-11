@@ -1,27 +1,27 @@
 version: '3'
 
 volumes:
-  adapt-db2:
-  adapt-configdb2:
-  adapt-data2:
+  adapt-db:
+  adapt-configdb:
+  adapt-data:
   vsftpd-data:
   vsftpd-logs:
   portainer_data:
 
 services:
   mongo:
-    container_name: adapt-db2
+    container_name: adapt-db
     image: mongo
     restart: always
     volumes:
-      - adapt-db2:/data/db
-      - adapt-configdb2:/data/configdb
+      - adapt-db:/data/db
+      - adapt-configdb:/data/configdb
   adapt-authoring:
-    container_name: adapt-authoring2
+    container_name: adapt-authoring
     image: darioseidl/adapt-authoring:0.11.3
     restart: always
     volumes:
-      - adapt-data2:/adapt_authoring
+      - adapt-data:/adapt_authoring
   vsftpd:
     container_name: vsftpd
     image: fauria/vsftpd
