@@ -11,7 +11,7 @@ Set it up with the following commands:
 
 ```
 docker run -d --name adapt-db -v adapt-db:/data/db -v adapt-configdb:/data/configdb mongo
-docker run -d --name adapt-authoring -p 5000:5000 --link adapt-db -v adapt-data:/adapt_authoring darioseidl/adapt-authoring:0.10.5
+docker run -d --name adapt-authoring -p 5000:5000 --link adapt-db -v adapt-data:/adapt_authoring darioseidl/adapt-authoring:0.11.3
 docker exec -it adapt-authoring node install --dbHost adapt-db
 docker restart adapt-authoring
 ```
