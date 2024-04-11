@@ -14,8 +14,7 @@ RUN set -x\
  && cd /adapt_authoring\
  && git fetch --all --tags\
  && git checkout tags/v0.11.3 -b release-0.11.3\
- && npm install --production\
- && mkdir conf
+ && npm install --production
 
 #EXPOSE 5000
 
