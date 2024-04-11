@@ -1,5 +1,5 @@
 
-# docker
+# install docker
 
 ```
 apt-get update
@@ -13,18 +13,14 @@ apt-get update
 apt-get install docker-ce
 ```
 
-# docker-compose
+# install docker-compose
 
 ```
 curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 ```
 
-# ssl
-
-https://github.com/wmnnd/nginx-certbot
-
-# adapt
+# install adapt-authoring, adminmonge, vsfpd, nginx, certbot, and portainer  
 
 ```
 aptitude install git
