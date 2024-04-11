@@ -25,7 +25,7 @@ chmod +x /usr/local/bin/docker-compose
 ```
 aptitude install git
 git clone https://github.com/rechnerherz/docker-adaptauthoring.git
-git clone https://github.com/wmnnd/nginx-certbot.git
+git checkout v0.11.3
 
 cd docker-adaptauthoring/
 
