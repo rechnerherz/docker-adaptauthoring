@@ -25,9 +25,9 @@ chmod +x /usr/local/bin/docker-compose
 ```
 aptitude install git
 git clone https://github.com/rechnerherz/docker-adaptauthoring.git
-git checkout v0.11.3
 
 cd docker-adaptauthoring/
+git checkout v0.11.3
 
 export ADAPT_FTP_PASSWORD="REPLACE_ME"
 export ADAPT_ADMINMONGO_PASSWORD="REPLACE_ME"
