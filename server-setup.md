@@ -1,5 +1,7 @@
 
-# install docker
+# Setup for full stack with adapt-authoring, adminmongo, vsftpd, nginx, certbot, and portainer
+
+## install docker
 
 ```
 apt-get update
@@ -13,14 +15,14 @@ apt-get update
 apt-get install docker-ce
 ```
 
-# install docker-compose
+## install docker-compose
 
 ```
 curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 ```
 
-# install adapt-authoring, adminmonge, vsfpd, nginx, certbot, and portainer  
+## install adapt-authoring, adminmongo, vsftpd, nginx, certbot, and portainer  
 
 ```
 aptitude install git
@@ -69,14 +71,7 @@ echo "/var/lib/docker/volumes/adapt-data/_data/ /var/lib/docker/volumes/vsftpd-d
 mount -a
 ```
 
-# utils
-
-```
-aptitude install htop molly-guard rsync
-```
-
-
-# recreate nginx after config change
+## recreate nginx after config change
 
 ```
 docker-compose --project-name=adapt up --build --force-recreate --no-deps -d nginx

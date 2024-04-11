@@ -1,6 +1,8 @@
 
 # Setup for running behind an existing nginx proxy
 
+# install adapt-authoring
+
 ```
 git clone https://github.com/rechnerherz/docker-adaptauthoring.git
 
@@ -40,7 +42,7 @@ docker exec -it adapt-authoring node install-without-github-api \
 docker restart adapt-authoring
 ```
 
-# recreate after config change
+## recreate after config change
 
 ```
 docker-compose --project-name=adapt --file docker-compose-simple.yml up --build --force-recreate --no-deps -d adapt-authoring
