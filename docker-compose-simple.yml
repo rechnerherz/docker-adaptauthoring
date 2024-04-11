@@ -15,7 +15,7 @@ services:
       - adapt-configdb:/data/configdb
   adapt-authoring:
     container_name: adapt-authoring
-    image: darioseidl/adapt-authoring:0.10.5
+    image: darioseidl/adapt-authoring:0.11.3
     build: .
     restart: always
     volumes:

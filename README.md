@@ -1,7 +1,7 @@
 # Adapt Authoring dockerized
 
 This project provides a Docker image for the [Adapt Authoring tool](https://github.com/adaptlearning/adapt_authoring).
-It was forked from [garyritchie/docker-adaptauthoring](https://github.com/garyritchie/docker-adaptauthoring) to support the newer versions (v0.5.0, v0.10.5).
+It was forked from [garyritchie/docker-adaptauthoring](https://github.com/garyritchie/docker-adaptauthoring) to support newer versions.
         
 ### Setup & Run
 
@@ -29,7 +29,7 @@ After the setup, run it with:
 ### Build
 
 ```
-version=0.10.5
+version=0.11.3
 docker build . -t "adapt-authoring:$version" -t "adapt-authoring:latest"
 ```
 
@@ -38,7 +38,7 @@ docker build . -t "adapt-authoring:$version" -t "adapt-authoring:latest"
 To push it to Docker Hub:
 
 ```
-version=0.10.5
+version=0.11.3
 docker tag "adapt-authoring:$version" "$DOCKER_ID_USER/adapt-authoring:$version"
 docker tag "adapt-authoring:latest" "$DOCKER_ID_USER/adapt-authoring:latest"
 docker push "$DOCKER_ID_USER/adapt-authoring:$version"

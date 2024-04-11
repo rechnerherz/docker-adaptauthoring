@@ -13,7 +13,7 @@ RUN set -x\
  && git clone https://github.com/adaptlearning/adapt_authoring.git\
  && cd /adapt_authoring\
  && git fetch --all --tags\
- && git checkout tags/v0.10.5 -b release-0.10.5\
+ && git checkout tags/v0.11.3 -b release-0.11.3\
  && npm install --production\
  && mkdir conf
 
