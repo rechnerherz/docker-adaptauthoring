@@ -5,13 +5,13 @@ It was forked from [garyritchie/docker-adaptauthoring](https://github.com/garyri
         
 ### Setup & Run
 
-The Docker image is available as [darioseidl/adapt-authoring/](https://hub.docker.com/r/darioseidl/adapt-authoring/).
+The Docker image is available as [rechnerherz/adapt-authoring/](https://hub.docker.com/r/rechnerherz/adapt-authoring/).
 
 Set it up with the following commands:
 
 ```
 docker run -d --name adapt-db -v adapt-db:/data/db -v adapt-configdb:/data/configdb mongo
-docker run -d --name adapt-authoring -p 5000:5000 --link adapt-db -v adapt-data:/adapt_authoring darioseidl/adapt-authoring:0.11.3
+docker run -d --name adapt-authoring -p 5000:5000 --link adapt-db -v adapt-data:/adapt_authoring rechnerherz/adapt-authoring:0.11.3
 docker exec -it adapt-authoring node install --dbHost adapt-db
 docker restart adapt-authoring
 ```
@@ -29,8 +29,7 @@ After the setup, run it with:
 ### Build
 
 ```
-version=0.11.3
-docker build . -t "adapt-authoring:$version" -t "adapt-authoring:latest"
+docker build . -t "adapt-authoring:0.11.3" -t "adapt-authoring:latest"
 ```
 
 ### Push
@@ -38,9 +37,8 @@ docker build . -t "adapt-authoring:$version" -t "adapt-authoring:latest"
 To push it to Docker Hub:
 
 ```
-version=0.11.3
-docker tag "adapt-authoring:$version" "$DOCKER_ID_USER/adapt-authoring:$version"
-docker tag "adapt-authoring:latest" "$DOCKER_ID_USER/adapt-authoring:latest"
-docker push "$DOCKER_ID_USER/adapt-authoring:$version"
-docker push "$DOCKER_ID_USER/adapt-authoring:latest"
+docker tag "adapt-authoring:0.11.3" "rechnerherz/adapt-authoring:0.11.3"
+docker tag "adapt-authoring:latest" "rechnerherz/adapt-authoring:latest"
+docker push "rechnerherz/adapt-authoring:0.11.3"
+docker push "rechnerherz/adapt-authoring:latest"
 ```
