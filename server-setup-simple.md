@@ -19,7 +19,7 @@ docker exec -it adapt-authoring node install-without-github-api \
 --dataRoot data \
 --authoringToolRepository "https://github.com/adaptlearning/adapt_authoring.git" \
 --frameworkRepository "https://github.com/adaptlearning/adapt_framework.git" \
---frameworkRevision v5.8.0 \
+--frameworkRevision v5.37.7 \
 --dbName adapt-tenant-master \
 --useConnectionUri n \
 --dbConnectionUri n \

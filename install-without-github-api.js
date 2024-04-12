@@ -27,8 +27,8 @@ var configOverrides = {};
 
 installHelpers.checkPrimaryDependencies(function(error) {
   if(error) return handleError(null, 1, error);
-  // DARIO hardcoded latestFrameworkTag to avoid hitting Github API rate limit
-  latestFrameworkTag='v5.8.0'
+  // hardcoded latestFrameworkTag to avoid hitting Github API rate limit
+  latestFrameworkTag='v5.37.7'
   // we need the framework version for the config items, so let's go
   //installHelpers.getLatestFrameworkVersion(function(error, latestFrameworkTag) {
   //  if(error) {
