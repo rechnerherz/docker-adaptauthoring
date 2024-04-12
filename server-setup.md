@@ -51,10 +51,12 @@ git clone https://github.com/rechnerherz/docker-adaptauthoring.git
 cd docker-adaptauthoring/
 git checkout v0.11.3
 
+# or create a .env file:
+export COMPOSE_PROJECT_NAME=adapt
 export ADAPT_FTP_PASSWORD="REPLACE_ME"
 export ADAPT_ADMINMONGO_PASSWORD="REPLACE_ME"
 
-docker-compose --project-name=adapt up -d
+docker-compose up -d
 
 docker cp install-without-github-api.js adapt-authoring:/adapt_authoring/install-without-github-api.js
 docker exec -it adapt-authoring node install-without-github-api \
@@ -94,5 +96,5 @@ mount -a
 ## recreate nginx after config change
 
 ```
-docker-compose --project-name=adapt up --build --force-recreate --no-deps -d nginx
+docker-compose up --build --force-recreate --no-deps -d nginx
 ```
