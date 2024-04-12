@@ -1,12 +1,13 @@
 version: '3'
 
 volumes:
-  adapt-db:
-  adapt-configdb:
-  adapt-data:
-  vsftpd-data:
-  vsftpd-logs:
+  db:
+  configdb:
+  data:
+  vsftpd_data:
+  vsftpd_logs:
   portainer_data:
+  certbot_lib:
 
 services:
   mongo:
@@ -14,21 +15,21 @@ services:
     image: mongo
     restart: unless-stopped
     volumes:
-      - adapt-db:/data/db
-      - adapt-configdb:/data/configdb
+      - db:/data/db
+      - configdb:/data/configdb
   adapt-authoring:
     container_name: adapt-authoring
     image: rechnerherz/adapt-authoring:0.11.3
     restart: unless-stopped
     volumes:
-      - adapt-data:/adapt_authoring
+      - data:/adapt_authoring
   vsftpd:
     container_name: vsftpd
     image: fauria/vsftpd
     restart: unless-stopped
     volumes:
-      - vsftpd-data:/home/vsftpd
-      - vsftpd-logs:/var/log/vsftpd
+      - vsftpd_data:/home/vsftpd
+      - vsftpd_logs:/var/log/vsftpd
     ports:
       - "20:20"
       - "21:21"
@@ -77,4 +78,5 @@ services:
     volumes:
       - ../nginx-certbot/data/certbot/conf:/etc/letsencrypt
       - ../nginx-certbot/data/certbot/www:/var/www/certbot
+      - certbot_lib:/var/lib/letsencrypt
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
