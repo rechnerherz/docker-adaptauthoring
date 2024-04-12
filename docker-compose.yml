@@ -55,7 +55,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
   nginx:
-    container_name: adapt-nginx
+    container_name: nginx
     image: nginx:1.19.5
     restart: unless-stopped
     volumes:
@@ -71,6 +71,7 @@ services:
       - "443:443"
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
   certbot:
+    container_name: certbot
     image: certbot/certbot
     restart: unless-stopped
     volumes:
