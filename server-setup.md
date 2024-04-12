@@ -51,13 +51,9 @@ git clone https://github.com/rechnerherz/docker-adaptauthoring.git
 cd docker-adaptauthoring/
 git checkout v0.11.3
 
-# or create a .env file:
-export COMPOSE_PROJECT_NAME=adapt
-export ADAPT_FTP_PASSWORD="REPLACE_ME"
-export ADAPT_ADMINMONGO_PASSWORD="REPLACE_ME"
-export GITHUB_USER="REPLACE_ME"
-export GITHUB_TOKEN="REPLACE_ME" # Create token with project:read https://github.com/settings/tokens
-export SUPER_PASSWORD="REPLACE_ME"
+# Create GitHub token with project:read https://github.com/settings/tokens
+# Set token and passwords in the .env file, then
+set -o allexport; source .env; set +o allexport
 
 docker-compose up -d
 
@@ -88,11 +84,12 @@ docker exec -it adapt-authoring node install \
 --smtpConnectionUrl n \
 --masterTenantName master \
 --masterTenantDisplayName Master \
---suEmail admin
+--suEmail admin \
 --suPassword "$SUPER_PASSWORD"
 docker restart adapt-authoring
 
-echo "/var/lib/docker/volumes/adapt-data/_data/ /var/lib/docker/volumes/vsftpd-data/_data/aatftp/adapt-data none bind 0 0" >> /etc/fstab
+mkdir /var/lib/docker/volumes/adapt_vsftpd_data/_data/aatftp/adapt-data
+echo "/var/lib/docker/volumes/adapt_data/_data/ /var/lib/docker/volumes/adapt_vsftpd_data/_data/aatftp/adapt-data none bind 0 0" >> /etc/fstab
 mount -a
 ```
 
