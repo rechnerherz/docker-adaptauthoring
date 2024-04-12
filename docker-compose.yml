@@ -23,6 +23,9 @@ services:
     restart: unless-stopped
     volumes:
       - data:/adapt_authoring
+    environment:
+      GITHUB_USER: "$GITHUB_USER"
+      GITHUB_TOKEN: "$GITHUB_TOKEN"
   vsftpd:
     container_name: vsftpd
     image: fauria/vsftpd

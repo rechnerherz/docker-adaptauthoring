@@ -55,11 +55,12 @@ git checkout v0.11.3
 export COMPOSE_PROJECT_NAME=adapt
 export ADAPT_FTP_PASSWORD="REPLACE_ME"
 export ADAPT_ADMINMONGO_PASSWORD="REPLACE_ME"
+export GITHUB_USER="REPLACE_ME"
+export GITHUB_TOKEN="REPLACE_ME" # Create token with project:read https://github.com/settings/tokens
 
 docker-compose up -d
 
-docker cp install-without-github-api.js adapt-authoring:/adapt_authoring/install-without-github-api.js
-docker exec -it adapt-authoring node install-without-github-api \
+docker exec -it adapt-authoring node install \
 --useJSON n \
 --install y \
 --serverPort 5000 \
