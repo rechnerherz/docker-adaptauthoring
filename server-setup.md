@@ -22,6 +22,21 @@ curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compo
 chmod +x /usr/local/bin/docker-compose
 ```
 
+## create ssl cert
+
+```
+git clone https://github.com/wmnnd/nginx-certbot.git
+```
+
+- Change example.org domain in data/nginx/app.conf
+- Set email and change domain in init-letsencrypt.sh
+
+```
+./init-letsencrypt.sh
+```
+
+- Stop and remove containers
+
 ## install adapt-authoring, adminmongo, vsftpd, nginx, certbot, and portainer  
 
 ```
