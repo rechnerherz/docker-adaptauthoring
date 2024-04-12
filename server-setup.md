@@ -57,6 +57,7 @@ export ADAPT_FTP_PASSWORD="REPLACE_ME"
 export ADAPT_ADMINMONGO_PASSWORD="REPLACE_ME"
 export GITHUB_USER="REPLACE_ME"
 export GITHUB_TOKEN="REPLACE_ME" # Create token with project:read https://github.com/settings/tokens
+export SUPER_PASSWORD="REPLACE_ME"
 
 docker-compose up -d
 
@@ -88,6 +89,7 @@ docker exec -it adapt-authoring node install \
 --masterTenantName master \
 --masterTenantDisplayName Master \
 --suEmail admin
+--suPassword "$SUPER_PASSWORD"
 docker restart adapt-authoring
 
 echo "/var/lib/docker/volumes/adapt-data/_data/ /var/lib/docker/volumes/vsftpd-data/_data/aatftp/adapt-data none bind 0 0" >> /etc/fstab
