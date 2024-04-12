@@ -51,7 +51,7 @@ git clone https://github.com/rechnerherz/docker-adaptauthoring.git
 cd docker-adaptauthoring/
 git checkout v0.11.3
 
-# Create GitHub token with project:read https://github.com/settings/tokens
+# Create GitHub token with read:project https://github.com/settings/tokens
 # Set token and passwords in the .env file, then
 set -o allexport; source .env; set +o allexport
 
