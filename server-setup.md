@@ -22,6 +22,12 @@ curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compo
 chmod +x /usr/local/bin/docker-compose
 ```
 
+## install git
+
+```
+apt install git
+```
+
 ## create ssl cert
 
 ```
@@ -40,7 +46,6 @@ git clone https://github.com/wmnnd/nginx-certbot.git
 ## install adapt-authoring, adminmongo, vsftpd, nginx, certbot, and portainer  
 
 ```
-aptitude install git
 git clone https://github.com/rechnerherz/docker-adaptauthoring.git
 
 cd docker-adaptauthoring/
