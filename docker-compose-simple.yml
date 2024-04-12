@@ -9,7 +9,7 @@ services:
   mongo:
     container_name: adapt-db
     image: mongo
-    restart: always
+    restart: unless-stopped
     volumes:
       - adapt-db:/data/db
       - adapt-configdb:/data/configdb
@@ -17,7 +17,7 @@ services:
     container_name: adapt-authoring
     image: darioseidl/adapt-authoring:0.11.3
     build: .
-    restart: always
+    restart: unless-stopped
     volumes:
       - adapt-data:/adapt_authoring
     environment:
