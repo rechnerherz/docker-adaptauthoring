@@ -30,10 +30,10 @@ installHelpers.checkPrimaryDependencies(function(error) {
   // hardcoded latestFrameworkTag to avoid hitting Github API rate limit
   latestFrameworkTag='v5.37.7'
   // we need the framework version for the config items, so let's go
-  //installHelpers.getLatestFrameworkVersion(function(error, latestFrameworkTag) {
-  //  if(error) {
-  //    return handleError(error, 1, 'Failed to get the latest framework version. Check package.json.');
-  //  }
+  // installHelpers.getLatestFrameworkVersion(function(error, latestFrameworkTag) {
+  //   if(error) {
+  //     return handleError(error, 1, 'Failed to get the latest framework version. Check package.json.');
+  //   }
     inputData = {
       useConfigJSON: [
         {
@@ -279,7 +279,7 @@ installHelpers.checkPrimaryDependencies(function(error) {
       USE_CONFIG = result.useJSON;
       start();
     });
-  //});
+  // });
 });
 
 // we need the framework version for the config items, so let's go
@@ -318,13 +318,13 @@ function start() {
       createMasterTenant,
       createSuperUser,
       buildFrontend,
-      syncMigrations
+      installHelpers.runMigrations
     ], function(error, results) {
       if(error) {
         console.error('ERROR: ', error);
         return exit(1, 'Install was unsuccessful. Please check the console output.');
       }
-      exit(0, `Installation completed successfully, the application can now be started with 'node server'.`);
+      exit(0, `Installation completed, the application can now be started with 'node server'.`);
     });
   });
 }
@@ -336,16 +336,15 @@ function configureServer(callback) {
   } else {
     console.log('We need to configure the tool before install. \nTip: just press ENTER to accept the default value in brackets.');
   }
-  // DARIO comment out to avoid hitting Github API rate limit
-  //installHelpers.getLatestFrameworkVersion(function(error, latestFrameworkTag) {
-  //  if(error) {
-  //    return handleError(error, 1, 'Failed to get latest framework version');
-  //  }
+  installHelpers.getLatestFrameworkVersion(function(error, latestFrameworkTag) {
+    if(error) {
+      return handleError(error, 1, 'Failed to get latest framework version');
+    }
     installHelpers.getInput(inputData.server, configOverrides, function(result) {
       addConfig(result);
       callback();
     });
-  //});
+  });
 }
 
 function configureDatabase(callback) {
@@ -413,9 +412,9 @@ function configureMasterTenant(callback) {
 
     if(USE_CONFIG && configOverrides.masterTenantName) {
       /**
-      * remove the masterTenantDisplayName, as we can use the existing value
-      * (which isn't in config.json so can't be used as an auto override)
-      */
+       * remove the masterTenantDisplayName, as we can use the existing value
+       * (which isn't in config.json so can't be used as an auto override)
+       */
       inputData.tenant = inputData.tenant.filter(item => item.name !== 'masterTenantDisplayName');
     }
     installHelpers.getInput(inputData.tenant, configOverrides, function(result) {
@@ -514,21 +513,9 @@ function createSuperUser(callback) {
 function buildFrontend(callback) {
   installHelpers.buildAuthoring(function(error) {
     if(error) {
-      return callback(`Failed to build the web application, (${error}) \nInstall will continue. Try again after installation completes using 'grunt build:prod'.`);
+      console.log(chalk.yellow(`Failed to build the web application, (${error}) \nInstall will continue. Try again after installation completes using 'grunt build:prod'.`));
     }
     callback();
-  });
-}
-
-//As this is a fresh install we dont need to run the migrations so add them to the db and set them to up
-function syncMigrations(callback) {
-  installHelpers.syncMigrations(function(err, migrations) {
-    database.getDatabase(function(err, db) {
-      if(err) {
-        return callback(err);
-      }
-      db.update('migration', {}, {'state': 'up'}, callback)
-    }, masterTenant._id)
   });
 }
 
