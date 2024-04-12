@@ -49,6 +49,8 @@ services:
     restart: unless-stopped
     environment:
       PASSWORD: "$ADAPT_ADMINMONGO_PASSWORD"
+      HOST: "0.0.0.0"
+      PORT: "1234"
       CONTEXT: "adminmongo"
     command: /bin/sh -c "rm config/app.json; node app.js"
   portainer:
