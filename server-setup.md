@@ -91,6 +91,9 @@ docker restart adapt-authoring
 mkdir /var/lib/docker/volumes/adapt_vsftpd_data/_data/aatftp/adapt-data
 echo "/var/lib/docker/volumes/adapt_data/_data/ /var/lib/docker/volumes/adapt_vsftpd_data/_data/aatftp/adapt-data none bind 0 0" >> /etc/fstab
 mount -a
+
+# 14 is the ftp user
+chown -R 14:staff /var/lib/docker/volumes/adapt_vsftpd_data/_data/aatftp/adapt-data
 ```
 
 ## recreate nginx after config change
