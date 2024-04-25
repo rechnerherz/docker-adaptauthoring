@@ -92,8 +92,10 @@ mkdir /var/lib/docker/volumes/adapt_vsftpd_data/_data/aatftp/adapt-data
 echo "/var/lib/docker/volumes/adapt_data/_data/ /var/lib/docker/volumes/adapt_vsftpd_data/_data/aatftp/adapt-data none bind 0 0" >> /etc/fstab
 mount -a
 
-# 14 is the ftp user
-chown -R 14:staff /var/lib/docker/volumes/adapt_vsftpd_data/_data/aatftp/adapt-data
+# allow group staff access for ftp
+# owner must still be root
+chown -R root:staff /var/lib/docker/volumes/adapt_vsftpd_data/_data/aatftp/adapt-data
+chmod -R g+w /var/lib/docker/volumes/adapt_data/_data/
 ```
 
 ## recreate nginx after config change
