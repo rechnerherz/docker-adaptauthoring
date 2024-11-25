@@ -49,7 +49,7 @@ git clone https://github.com/wmnnd/nginx-certbot.git
 git clone https://github.com/rechnerherz/docker-adaptauthoring.git
 
 cd docker-adaptauthoring/
-git checkout v0.11.3
+git checkout v0.11.4
 
 # Create GitHub token with read:project https://github.com/settings/tokens
 # Set token and passwords in the .env file, then

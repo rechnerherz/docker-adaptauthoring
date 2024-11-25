@@ -11,7 +11,7 @@ Set it up with the following commands:
 
 ```
 docker run -d --name adapt-db -v adapt-db:/data/db -v adapt-configdb:/data/configdb mongo
-docker run -d --name adapt-authoring -p 5000:5000 --link adapt-db -v adapt-data:/adapt_authoring rechnerherz/adapt-authoring:0.11.3
+docker run -d --name adapt-authoring -p 5000:5000 --link adapt-db -v adapt-data:/adapt_authoring rechnerherz/adapt-authoring:0.11.4
 docker exec -it adapt-authoring node install --dbHost adapt-db
 docker restart adapt-authoring
 ```
@@ -29,7 +29,7 @@ After the setup, run it with:
 ### Build
 
 ```
-docker build . -t "adapt-authoring:0.11.3" -t "adapt-authoring:latest"
+docker build . -t "adapt-authoring:0.11.4" -t "adapt-authoring:latest"
 ```
 
 ### Push
@@ -37,8 +37,8 @@ docker build . -t "adapt-authoring:0.11.3" -t "adapt-authoring:latest"
 To push it to Docker Hub:
 
 ```
-docker tag "adapt-authoring:0.11.3" "rechnerherz/adapt-authoring:0.11.3"
+docker tag "adapt-authoring:0.11.4" "rechnerherz/adapt-authoring:0.11.4"
 docker tag "adapt-authoring:latest" "rechnerherz/adapt-authoring:latest"
-docker push "rechnerherz/adapt-authoring:0.11.3"
+docker push "rechnerherz/adapt-authoring:0.11.4"
 docker push "rechnerherz/adapt-authoring:latest"
 ```
