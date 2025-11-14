@@ -42,3 +42,10 @@ docker tag "adapt-authoring:latest" "rechnerherz/adapt-authoring:latest"
 docker push "rechnerherz/adapt-authoring:0.11.4"
 docker push "rechnerherz/adapt-authoring:latest"
 ```
+
+### Upgrade in-place
+
+```
+docker stop adapt-authoring
+docker-compose run adapt-authoring node upgrade
+```
