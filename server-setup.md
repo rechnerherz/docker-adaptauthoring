@@ -98,6 +98,13 @@ chown -R root:staff /var/lib/docker/volumes/adapt_vsftpd_data/_data/aatftp/adapt
 chmod -R g+w /var/lib/docker/volumes/adapt_data/_data/
 ```
 
+## Remove jquery mobile
+
+```
+tempdir="$(docker exec -it adapt-authoring find /adapt_authoring/ -wholename '*/src/core/required/adapt/js/scriptLoader.js' | grep -oP '/temp/\K[^/]+')"
+docker cp scriptLoader-without-jqueryMobile.js adapt-authoring:/adapt_authoring/temp/$tempdir/adapt_framework/src/core/required/adapt/js/scriptLoader.js
+```
+
 ## recreate nginx after config change
 
 ```
