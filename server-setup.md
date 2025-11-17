@@ -101,8 +101,10 @@ chmod -R g+w /var/lib/docker/volumes/adapt_data/_data/
 ## Remove jquery mobile
 
 ```
+docker exec -it adapt-authoring grep -R jqueryMobile /adapt_authoring/
 tempdir="$(docker exec -it adapt-authoring find /adapt_authoring/ -wholename '*/src/core/required/adapt/js/scriptLoader.js' | grep -oP '/temp/\K[^/]+')"
 docker cp scriptLoader-without-jqueryMobile.js adapt-authoring:/adapt_authoring/temp/$tempdir/adapt_framework/src/core/required/adapt/js/scriptLoader.js
+docker exec -it adapt-authoring grep -R jqueryMobile /adapt_authoring/
 ```
 
 ## recreate nginx after config change
