@@ -10,7 +10,7 @@ The Docker image is available as [rechnerherz/adapt-authoring/](https://hub.dock
 Set it up with the following commands:
 
 ```
-docker run -d --name adapt-db -v adapt-db:/data/db -v adapt-configdb:/data/configdb mongo
+docker run -d --name adapt-db -v adapt-db:/data/db -v adapt-configdb:/data/configdb mongo:4.4.29
 docker run -d --name adapt-authoring -p 5000:5000 --link adapt-db -v adapt-data:/adapt_authoring rechnerherz/adapt-authoring:0.11.5
 docker exec -it adapt-authoring node install --dbHost adapt-db
 docker restart adapt-authoring
