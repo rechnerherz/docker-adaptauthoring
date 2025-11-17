@@ -105,6 +105,8 @@ docker exec -it adapt-authoring grep -R jqueryMobile /adapt_authoring/
 tempdir="$(docker exec -it adapt-authoring find /adapt_authoring/ -wholename '*/src/core/required/adapt/js/scriptLoader.js' | grep -oP '/temp/\K[^/]+')"
 docker cp scriptLoader-without-jqueryMobile.js adapt-authoring:/adapt_authoring/temp/$tempdir/adapt_framework/src/core/required/adapt/js/scriptLoader.js
 docker exec -it adapt-authoring grep -R jqueryMobile /adapt_authoring/
+docker exec -it adapt-authoring find /adapt_authoring/ -name 'jquery.mobile.custom.min.js'
+docker exec -it adapt-authoring find /adapt_authoring/ -name 'jquery.mobile.custom.min.js' -delete
 ```
 
 ## recreate nginx after config change
