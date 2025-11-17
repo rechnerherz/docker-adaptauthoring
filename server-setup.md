@@ -57,7 +57,7 @@ set -o allexport; source .env; set +o allexport
 
 docker-compose up -d
 
-docker exec -it adapt-authoring node install \
+docker exec -it --env-file .env adapt-authoring node install \
 --useJSON n \
 --install y \
 --serverPort 5000 \
