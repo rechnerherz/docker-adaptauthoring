@@ -1,5 +1,5 @@
 # https://hub.docker.com/r/keymetrics/pm2
-FROM keymetrics/pm2:18-buster
+FROM keymetrics/pm2:18-bullseye
 
 LABEL maintainer="dario@rechnerherz.at"
 
