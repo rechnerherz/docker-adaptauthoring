@@ -110,3 +110,16 @@ docker cp scriptLoader-without-jqueryMobile.js adapt-authoring:/adapt_authoring/
 ```
 docker-compose up --build --force-recreate --no-deps -d nginx
 ```
+
+## Upgrade
+
+- build and push new docker image for adapt authoring
+- upate docker-compose.yml to refer to new image
+- push docker-compose.yml
+- docker-compose down
+- git checkout master branch and pull
+- rename volumes in db, configdb, data in docker-compose.yml
+- docker-compose up -d
+- reinstall adapt framework (node install)
+- update mount in fstab for vsftpd to serve the new volume
+- remove jquery mobile
