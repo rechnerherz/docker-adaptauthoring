@@ -19,7 +19,7 @@ services:
       - configdb:/data/configdb
   adapt-authoring:
     container_name: adapt-authoring
-    image: rechnerherz/adapt-authoring:0.11.4
+    image: rechnerherz/adapt-authoring:0.11.5
     restart: unless-stopped
     volumes:
       - data:/adapt_authoring

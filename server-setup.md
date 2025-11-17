@@ -49,7 +49,7 @@ git clone https://github.com/wmnnd/nginx-certbot.git
 git clone https://github.com/rechnerherz/docker-adaptauthoring.git
 
 cd docker-adaptauthoring/
-git checkout v0.11.4
+git checkout v0.11.5
 
 # Create GitHub token with read:project https://github.com/settings/tokens
 # Set token and passwords in the .env file, then
@@ -65,7 +65,7 @@ docker exec -it adapt-authoring node install \
 --dataRoot data \
 --authoringToolRepository "https://github.com/adaptlearning/adapt_authoring.git" \
 --frameworkRepository "https://github.com/adaptlearning/adapt_framework.git" \
---frameworkRevision v5.37.7 \
+--frameworkRevision v5.53.5 \
 --dbName adapt-tenant-master \
 --useConnectionUri n \
 --dbConnectionUri n \
