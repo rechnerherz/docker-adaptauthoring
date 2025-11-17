@@ -13,7 +13,8 @@ RUN set -x\
  && cd /adapt_authoring\
  && git fetch --all --tags\
  && git checkout tags/v0.11.5 -b release-0.11.5\
- && npm install --production
+ && npm install --production\
+ && npm cache clean --force
 
 #EXPOSE 5000
 
