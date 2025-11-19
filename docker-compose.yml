@@ -1,7 +1,7 @@
 volumes:
-  db2:
-  configdb2:
-  data2:
+  db:
+  configdb:
+  data:
   vsftpd_data:
   vsftpd_logs:
   portainer_data:
@@ -13,14 +13,14 @@ services:
     image: mongo:4.4.29
     restart: unless-stopped
     volumes:
-      - db2:/data/db
-      - configdb2:/data/configdb
+      - db:/data/db
+      - configdb:/data/configdb
   adapt-authoring:
     container_name: adapt-authoring
     image: rechnerherz/adapt-authoring:0.11.5
     restart: unless-stopped
     volumes:
-      - data2:/adapt_authoring
+      - data:/adapt_authoring
     environment:
       GITHUB_USER: "$GITHUB_USER"
       GITHUB_TOKEN: "$GITHUB_TOKEN"
