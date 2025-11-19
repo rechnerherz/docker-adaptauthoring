@@ -1,0 +1,87 @@
+version: '3'
+
+volumes:
+  db:
+  configdb:
+  data:
+  vsftpd_data:
+  vsftpd_logs:
+  portainer_data:
+  certbot_lib:
+
+services:
+  mongo:
+    container_name: adapt-db
+    image: mongo:4.4.29
+    restart: unless-stopped
+    volumes:
+      - db:/data/db
+      - configdb:/data/configdb
+  adapt-authoring:
+    container_name: adapt-authoring
+    image: rechnerherz/adapt-authoring:0.11.4
+    restart: unless-stopped
+    volumes:
+      - data:/adapt_authoring
+    environment:
+      GITHUB_USER: "$GITHUB_USER"
+      GITHUB_TOKEN: "$GITHUB_TOKEN"
+  vsftpd:
+    container_name: vsftpd
+    image: fauria/vsftpd
+    restart: unless-stopped
+    volumes:
+      - vsftpd_data:/home/vsftpd
+      - vsftpd_logs:/var/log/vsftpd
+    ports:
+      - "20:20"
+      - "21:21"
+      - "21100-21109:21100-21109"
+    environment:
+      FTP_USER: aatftp
+      FTP_PASS: "$ADAPT_FTP_PASSWORD"
+      PASV_ADDRESS: 127.0.0.1
+      PASV_MIN_PORT: "21100"
+      PASV_MAX_PORT: "21109"
+  adminmongo:
+    container_name: adminmongo
+    image: mrvautin/adminmongo
+    restart: unless-stopped
+    environment:
+      PASSWORD: "$ADAPT_ADMINMONGO_PASSWORD"
+      HOST: "0.0.0.0"
+      PORT: "1234"
+      CONTEXT: "adminmongo"
+    command: /bin/sh -c "rm config/app.json; node app.js"
+  portainer:
+    container_name: portainer
+    image: portainer/portainer
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+  nginx:
+    container_name: nginx
+    image: nginx:1.19.5
+    restart: unless-stopped
+    volumes:
+      - ./etc/nginx/conf.d:/etc/nginx/conf.d
+      - ../nginx-certbot/data/certbot/conf:/etc/letsencrypt
+      - ../nginx-certbot/data/certbot/www:/var/www/certbot
+    depends_on:
+      - adapt-authoring
+      - adminmongo
+      - portainer
+    ports:
+      - "80:80"
+      - "443:443"
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+  certbot:
+    container_name: certbot
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ../nginx-certbot/data/certbot/conf:/etc/letsencrypt
+      - ../nginx-certbot/data/certbot/www:/var/www/certbot
+      - certbot_lib:/var/lib/letsencrypt
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
