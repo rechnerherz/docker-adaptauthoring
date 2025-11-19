@@ -115,7 +115,9 @@ docker exec -it adapt-authoring find /adapt_authoring/ -name 'jquery.mobile.cust
 docker-compose up --build --force-recreate --no-deps -d nginx
 ```
 
-## Upgrade
+## Upgrade with new install
+
+For in-place upgrade, see the README.md.
 
 - build and push new docker image for adapt authoring
 - upate docker-compose.yml to refer to new image
